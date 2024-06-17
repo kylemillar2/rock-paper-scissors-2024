@@ -12,6 +12,12 @@ let getComputerChoice = () => {
     }
 }
 
+let disableButtons = () => {
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+}
+
 let playRound = (humanChoice, computerChoice) => {
     const scoreDiv = document.querySelector('div');
     console.log(humanChoice)
@@ -19,22 +25,38 @@ let playRound = (humanChoice, computerChoice) => {
     computerChoice = computerChoice.toLowerCase();
     if (humanChoice == "rock" && computerChoice == "scissors"
         || humanChoice == "paper" && computerChoice == "rock"
-        || humanChoice == "scissors" && computerChoice == "paper") {
+        || humanChoice == "scissors" && computerChoice == "paper")
+    {
         console.log(`You win, ${humanChoice} beats ${computerChoice}`);
         humanScore++;
     }
     else if (computerChoice == "rock" && humanChoice == "scissors"
         || computerChoice == "paper" && humanChoice == "rock"
-        || computerChoice == "scissors" && humanChoice == "paper") {
+        || computerChoice == "scissors" && humanChoice == "paper")
+    {
         console.log(`You lose, ${computerChoice} beats ${humanChoice}`);
         computerScore++;
     }
-    else {
+    else
+    {
         console.log(`It's a draw, you both chose ${humanChoice}`);
     }
-    scoreDiv.textContent = `${humanScore} - ${computerScore}`;
+    if (humanScore == 5)
+    {
+        scoreDiv.textContent = `You win! The final score was ${humanScore} - ${computerScore}`;
+        disableButtons();
+    }
+    else if (computerScore == 5)
+    {
+        scoreDiv.textContent = `You lose! The final score was ${humanScore} - ${computerScore}`;
+        disableButtons();
+    }
+    else
+    {
+        scoreDiv.textContent = `${humanScore} - ${computerScore}`;
+    }
 }
-
+    
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
